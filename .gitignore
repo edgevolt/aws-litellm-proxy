@@ -1,0 +1,17 @@
+# --- Terraform (SENSITIVE) ---
+# These files contain information about your running infrastructure.
+# NEVER commit them to GitHub.
+*.tfstate
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+*.tfvars
+
+# --- Python ---
+__pycache__/
+*.pyc
+
+# --- OS / IDE ---
+.DS_Store
+.vscode/
+.idea/
