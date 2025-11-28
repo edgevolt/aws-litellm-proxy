@@ -2,11 +2,13 @@
 
 This project demonstrates a production-grade deployment of **LiteLLM** as a secure AI Gateway on AWS. It allows applications to access multiple Bedrock models (Cohere, Llama 3, Titan) through a single OpenAI-compatible API endpoint.
 
-## 🏗 Architecture
+## 🏗  Architecture
 * **Infrastructure as Code:** Terraform
 * **Container Orchestration:** AWS ECS (Fargate Spot)
 * **API Gateway:** LiteLLM (Python)
 * **Security:** IAM Roles (Zero Static Keys) & Dynamic IP Whitelisting
+
+
 
 ## 🚀 Features
 * **Multi-Model Routing:** Seamlessly routes traffic between Anthropic, Cohere, Meta, and Amazon models.
@@ -15,7 +17,7 @@ This project demonstrates a production-grade deployment of **LiteLLM** as a secu
     * Network locked down to the administrator's specific IP via Terraform.
 * **Resilient:** Automated "Self-Healing" deployment scripts (Python & Bash).
 
-## 🛠 Prerequisites
+## 🛠  Prerequisites
 * AWS CLI (Configured with Administrator Access)
 * Terraform v1.0+
 * Docker
@@ -28,35 +30,33 @@ You can deploy the entire environment using either the Python script (recommende
 ### Option A: Python Deployment (Recommended)
 The \`demo.py\` script provides structured logging, JSON parsing for test evidence, and robust error handling.
 
-\`\`\`bash
+```bash
 python3 demo.py
-\`\`\`
+```
 
 ### Option B: Bash Deployment
 For environments where Python is not available, the shell script provides the same "One-Click" deployment capability.
 
-\`\`\`bash
+```bash
 chmod +x demo.sh
 ./demo.sh
-\`\`\`
+```
 
----
-
-### Manual Testing
+## Manual Testing
 Once the infrastructure is running, you can hit the endpoint using OpenAI-compatible formats:
 
-\`\`\`bash
-# Replace YOUR_LB_IP with the Public IP from the deployment output
+```bash
 curl -X POST http://YOUR_LB_IP:4000/chat/completions \\
   -H "Content-Type: application/json" \\
   -d '{
-    "model": "bedrock-cohere", 
-    "messages": [{ "role": "user", "content": "Hello!" }] 
+    "model": "bedrock-cohere",
+    "messages": [{ "role": "user", "content": "Hello!" }]
   }'
-\`\`\`
+```
+(replace YOUR_LB_IP with the ip of the container instance)
 
 ## 🧹 Cleanup
 To destroy all resources and stop billing, run:
-\`\`\`bash
+```bash
 terraform destroy -auto-approve
-\`\`\`
+```
